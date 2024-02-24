@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@huggingface/inference": "^2.6.4",
     "@radix-ui/react-slot": "^1.0.2",
     "@sparticuz/chromium-min": "^115.0.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "llm-chunk": "^0.0.1",
     "lucide-react": "^0.336.0",
     "next": "14.1.0",
     "puppeteer": "^10.1.0",
