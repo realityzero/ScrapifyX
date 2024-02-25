@@ -120,6 +120,7 @@ export async function POST() {
   async function getScreenshot(url: string, ratio = 1) {
     const page = await getPage();
     await page.goto(url, {
+      timeout: 0,
       waitUntil: 'networkidle0',
     });
     await page.setViewport({
