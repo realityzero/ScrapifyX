@@ -1,6 +1,6 @@
 const chromium = require('@sparticuz/chromium-min');
 const puppeteer = require('puppeteer-core');
-let _page;
+let _page: Promise<Page>;
 
 const exePath =
   process.platform === "win32"
@@ -102,6 +102,7 @@ export async function POST() {
     if (_page) return _page;
   
     const browser = await getBrowser();
+    // @ts-ignore
     _page = await browser.newPage();
     return _page;
   }
