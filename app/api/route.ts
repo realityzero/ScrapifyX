@@ -116,7 +116,7 @@ export async function POST() {
     return true;
   }
   
-  export async function getScreenshot(url: string, ratio = 1) {
+  async function getScreenshot(url: string, ratio = 1) {
     const page = await getPage();
     await page.goto(url, {
       waitUntil: 'networkidle0',
