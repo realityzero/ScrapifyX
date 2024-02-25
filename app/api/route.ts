@@ -125,11 +125,12 @@ export async function POST() {
     await page.setViewport({
       width: 1000,
       height: 600,
-      devicePixelRatio: ratio,
+      deviceScaleFactor: ratio
     });
     const pageTitle = await page.title();
     console.log('pageTitle', pageTitle);
     
+    // @ts-ignore
     const extractedText = await page.$eval('*', (el) => el.innerText);
     console.log('extractedText', extractedText);
 
