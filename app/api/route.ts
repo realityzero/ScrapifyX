@@ -49,7 +49,7 @@ async function getBrowser(): Promise<Browser> {
     //   headless: chromium.headless,
     //   ignoreHTTPSErrors: true,
     // });
-    const options = await getOptions(true);
+    const options = await getOptions(config.isDevMode);
     return puppeteer.launch(options);
 
 }

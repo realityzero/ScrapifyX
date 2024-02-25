@@ -11,6 +11,7 @@ interface Config {
         apiKey: string;
         model: string;
     }
+    isDevMode: boolean;
 }
 
 const config: Config = {
@@ -25,7 +26,8 @@ const config: Config = {
     huggingface: {
         apiKey: process.env.HUGGING_FACE_API_KEY || '',
         model: 'sentence-transformers/all-MiniLM-L6-v2',
-    }
+    },
+    isDevMode: process.env.NODE_ENV == 'development',
 }
 
 export { config };
