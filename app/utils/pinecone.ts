@@ -2,7 +2,7 @@ import { Pinecone, RecordMetadata, RecordValues, ScoredPineconeRecord } from "@p
 import { ChunkedDocument } from "../interfaces/document";
 import { chunk } from "llm-chunk";
 import { HuggingFace } from "./huggingface";
-import { config } from "@/config";
+import { config } from "../../config";
 
 export class PineconeDb {
     private _client;

@@ -56,7 +56,7 @@ async function getBrowser(): Promise<Browser> {
 import { headers } from 'next/headers'
 import { Browser, Page } from 'puppeteer-core';
 import { PineconeDb } from '../utils/pinecone';
-import { config } from '@/config';
+import { config } from "../../config";
  
 // export async function GET(request: Request) {
 //   const headersList = headers()

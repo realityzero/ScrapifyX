@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "../../config";
 import { FeatureExtractionOutput, HfInference } from "@huggingface/inference";
 
 export class HuggingFace {
