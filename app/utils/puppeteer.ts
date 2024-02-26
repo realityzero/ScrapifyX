@@ -12,24 +12,17 @@ export class Puppeteer {
         ? "/usr/bin/google-chrome"
         : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-    static options: { args: never[] | any[]; executablePath: any; headless: any; defaultViewport?: any; ignoreHTTPSErrors?: boolean; };
-
-
     async getOptions(isDev: boolean) {
-        // let options;
+        let options;
         console.log('exePath:', Puppeteer.exePath);
-        if (Puppeteer.options && Object.keys(Puppeteer.options).length !== 0) {
-            console.log(JSON.stringify(Puppeteer.options));
-            return Puppeteer.options;
-        }
         if (isDev) {
-            Puppeteer.options = {
+            options = {
             args: [],
             executablePath: Puppeteer.exePath,
             headless: 'new',
             };
         } else {
-            Puppeteer.options = {
+            options = {
                 args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
                 defaultViewport: chromium.defaultViewport,
                 executablePath: await chromium.executablePath(
@@ -39,7 +32,7 @@ export class Puppeteer {
                 ignoreHTTPSErrors: true,
             };
         }
-        return Puppeteer.options;
+        return options;
     }
 
     async getBrowser(): Promise<Browser> {
