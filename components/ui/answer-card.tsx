@@ -4,8 +4,8 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { TopKResults } from "@/app/interfaces/document"
+} from "./card"
+import { TopKResults } from "../../app/interfaces/document"
 
 
 type CardProps = React.ComponentProps<typeof Card>
