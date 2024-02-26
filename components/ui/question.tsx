@@ -36,7 +36,7 @@ export function QuestionUi({ onApiResponse }: QuestionUiProps) {
 
     toast({
         title: "Hold tight!",
-        description: "We're coming ringht back w/ answers",
+        description: "We're coming right back w/ answers",
     });
     const response = await fetch('/question/', {
       method: "POST",
