@@ -60,13 +60,9 @@ export async function POST(request: Request) {
 
     const { url } = await request.json();
     try {
-        const file = await getScreenshot(url);
-        return new Response(file, {
-            status: 200,
-            headers: {
-                'Content-Type': 'image/png',
-                'Cache-Control': 'public, immutable, no-transform, s-maxage=604800, max-age=604800',
-            },
+        await initiateScraping(url);
+        return Response.json('Success', {
+          status: 200,
         })
       } catch (error) {
         console.error(error);
@@ -82,7 +78,7 @@ export async function POST(request: Request) {
     return page;
   }
   
-  async function getScreenshot(url: string, ratio = 1) {
+  async function initiateScraping(url: string, ratio = 1) {
     const page = await getPage();
     await page.goto(url, {
       timeout: 0,
@@ -98,8 +94,6 @@ export async function POST(request: Request) {
     
     // @ts-ignore
     const extractedText = await page.$eval('*', (el) => el.innerText);
-    const file = await page.screenshot();
-
     // close page for better memory management
     await page.close();
 
@@ -114,7 +108,5 @@ export async function POST(request: Request) {
       console.log('error: ', err);
       throw err;
     }
-
-    return file;
   }
   
