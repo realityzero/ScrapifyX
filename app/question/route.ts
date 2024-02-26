@@ -7,7 +7,7 @@ export async function POST(request: Request) {
         question: z.string().min(3),
     });
 
-    const zodCheck = schema.safeParse(request.body);
+    const zodCheck = schema.safeParse(await request.json());
 
     if (!zodCheck.success) {
         const { errors } = zodCheck.error;
@@ -19,7 +19,7 @@ export async function POST(request: Request) {
     }
 
     try {
-        const { question } = await request.json();
+        const { question } = zodCheck.data;
         console.log('Question', question);
         const response = await new PineconeDb().queryVectorStore(config.pinecode.indexName, question);
         return Response.json(response, {

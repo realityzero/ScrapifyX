@@ -47,7 +47,7 @@ export async function POST(request: Request) {
         url: z.string().url(),
     });
 
-    const zodCheck = schema.safeParse(request.body);
+    const zodCheck = schema.safeParse(await request.json());
 
     if (!zodCheck.success) {
         const { errors } = zodCheck.error;
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
         });
     }
 
-    const { url } = await request.json();
+    const { url } = zodCheck.data;
     try {
         await initiateScraping(url);
         return Response.json('Success', {
