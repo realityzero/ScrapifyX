@@ -39,11 +39,18 @@ export class PineconeDb {
 
     async queryVectorStore(indexName: string, question: string): Promise<ScoredPineconeRecord<RecordMetadata>[] | undefined> {
         console.log('Querying Pinecone vector store...');
-        // 2. Retrieve the Pinecone index
+        // Retrieve the Pinecone index
         const index = this._client.Index(indexName);
 
-        const queryEmbedding = await new HuggingFace().generateEmbedding(question);
-        // 4. Query Pinecone index and return top 10 matches
+        let queryEmbedding;
+        try {
+            // Scope of improvement: use singleton
+            queryEmbedding = await new HuggingFace().generateEmbedding(question);
+        } catch (error) {
+            // Scope of improvement: use exception classes and catch at controller
+            throw new Error('Exception occurred at HuggingFace');
+        }
+        // query Pinecone index and return top k matches
         const queryResponse = await index.query({
             topK: config.pinecode.selectTopK,
             vector: queryEmbedding as RecordValues,
@@ -55,10 +62,7 @@ export class PineconeDb {
         console.log(`Asking question: ${question}...`);
 
         if (queryResponse.matches.length) {
-            // const concatenatedPageContent = queryResponse.matches
-            //     .map((match) => match.metadata.pageContent)
-            //     .join(" ");
-            console.log(`big shit: ${JSON.stringify(queryResponse.matches)}`);
+            console.log(`Matches: ${JSON.stringify(queryResponse.matches)}`);
             return queryResponse.matches;
         } else {
             console.log('No matches found');
