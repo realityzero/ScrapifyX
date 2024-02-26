@@ -3,9 +3,11 @@ import React, { useState } from "react";
 import { BackgroundGradient } from "../ui/background-gradient";
 import { Input } from "./input";
 import { Button } from "./button";
+import { useToast } from "./use-toast";
 
 
 export function Scrapper() {
+    const { toast } = useToast();
     const [url, setUrl] = useState('');
 
     const submitSrappingRequest = async () => {
@@ -15,6 +17,21 @@ export function Scrapper() {
             headers: {
             "Content-Type": "application/json"
             }
+        }).catch(() => {
+            toast({
+                variant: "destructive",
+                title: "Uh oh! Something went wrong.",
+                description: "There was a problem with your request.",
+            });
+        }).then(() => {
+            toast({
+                title: "Wohoo!!",
+                description: "Web page scrapping done 🚀",
+            });
+        });
+        toast({
+            title: "Wohoo!!",
+            description: "Hold tight! 🫡 We're scraping.",
         });
     }
     const handleUrlChange = (event: { target: { value: React.SetStateAction<string>; }; }) => {
