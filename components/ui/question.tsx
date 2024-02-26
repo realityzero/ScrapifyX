@@ -5,17 +5,35 @@ import { Button } from "./button";
 import { Textarea } from "./textarea";
 import { TopKResults } from "../../app/interfaces/document";
 import { useToast } from "./use-toast";
-
+import { string, object } from 'zod';
 
 interface QuestionUiProps {
   onApiResponse: (responseInfo: TopKResults[]) => void;
 }
 
 export function QuestionUi({ onApiResponse }: QuestionUiProps) {
+  const questionSchema = object({
+    question: string().min(3, {
+      message: "Question too short",
+    }),
+  });
   const { toast } = useToast();
+
   const [question, setQuestion] = useState('');
 
   const fetchAnswer = async () => {
+    try {
+      questionSchema.parse({ question });
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Validation Error",
+        // @ts-ignore
+        description: JSON.parse(error.message)[0].message,
+      });
+      return;
+    }
+
     toast({
         title: "Hold tight!",
         description: "We're coming ringht back w/ answers",

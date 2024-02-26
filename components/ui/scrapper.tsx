@@ -4,13 +4,29 @@ import { BackgroundGradient } from "../ui/background-gradient";
 import { Input } from "./input";
 import { Button } from "./button";
 import { useToast } from "./use-toast";
+import { string, object } from 'zod';
 
 
 export function Scrapper() {
+    const urlSchema = object({
+        url: string().url("Please enter a valid URL"),
+    });
     const { toast } = useToast();
     const [url, setUrl] = useState('');
 
     const submitSrappingRequest = async () => {
+        try {
+            urlSchema.parse({ url });
+        } catch (error) {
+            toast({
+                variant: "destructive",
+                title: "Validation Error",
+                // @ts-ignore
+                description: JSON.parse(error.message)[0].message,
+            });
+            return;
+        }
+
         fetch('/api/', {
             method: "POST",
             body: JSON.stringify({url}),
