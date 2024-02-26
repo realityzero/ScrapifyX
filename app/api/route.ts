@@ -1,5 +1,10 @@
+import { Browser, Page } from 'puppeteer-core';
+import { PineconeDb } from '../utils/pinecone';
+import { config } from "../../config";
+
 const chromium = require('@sparticuz/chromium-min');
 const puppeteer = require('puppeteer-core');
+import { z } from "zod";
 
 const exePath =
   process.platform === "win32"
@@ -36,11 +41,23 @@ async function getBrowser(): Promise<Browser> {
     return puppeteer.launch(options);
 
 }
-import { Browser, Page } from 'puppeteer-core';
-import { PineconeDb } from '../utils/pinecone';
-import { config } from "../../config";
 
 export async function POST(request: Request) {
+      const schema = z.object({
+        url: z.string().url(),
+    });
+
+    const zodCheck = schema.safeParse(request.body);
+
+    if (!zodCheck.success) {
+        const { errors } = zodCheck.error;
+        return Response.json({
+            error: { message: "Invalid request", errors },
+        }, {
+            status: 400
+        });
+    }
+
     const { url } = await request.json();
     try {
         const file = await getScreenshot(url);

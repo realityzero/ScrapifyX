@@ -1,8 +1,23 @@
 import { PineconeDb } from '../utils/pinecone';
 import { config } from "../../config";
-
+import { z } from "zod";
 
 export async function POST(request: Request) {
+    const schema = z.object({
+        question: z.string().min(3),
+    });
+
+    const zodCheck = schema.safeParse(request.body);
+
+    if (!zodCheck.success) {
+        const { errors } = zodCheck.error;
+        return Response.json({
+            error: { message: "Invalid request", errors },
+        }, {
+            status: 400
+        });
+    }
+
     try {
         const { question } = await request.json();
         console.log('Question', question);
