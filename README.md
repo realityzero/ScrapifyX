@@ -3,7 +3,7 @@
 Web scraper powered by Puppeteer and Pinecone DB as Vector DB.
 
 ## General Architecture
-- ![Architectural working](https://raw.githubusercontent.com/realityzero/ScrapifyX/main/docs/Web%20Scraper.png)
+![Architectural working](https://raw.githubusercontent.com/realityzero/ScrapifyX/main/docs/Web%20Scraper.png)
 
 ## Video Brief from Author
 - [Loom Video](https://www.loom.com/share/139f9b9c7ae94b09a41e15771995af5d)
