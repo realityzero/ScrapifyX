@@ -7,11 +7,11 @@ import { TopKResults } from "../../app/interfaces/document";
 import { useToast } from "./use-toast";
 
 
-interface QueryUiProps {
+interface QuestionUiProps {
   onApiResponse: (responseInfo: TopKResults[]) => void;
 }
 
-export function QuestionUi({ onApiResponse }: QueryUiProps) {
+export function QuestionUi({ onApiResponse }: QuestionUiProps) {
   const { toast } = useToast();
   const [question, setQuestion] = useState('');
 
