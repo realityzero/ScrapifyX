@@ -12,6 +12,7 @@ Web scraper powered by Puppeteer and Pinecone DB as Vector DB.
 - UI flow is tested for a happy path. There will be some bugs available.
 - Refer ```.env.example``` file for example env variables
 - Service is based on Next.js 13 and deployed using [Render](https://render.com/). Due to limitations of free tier of [Render](https://render.com/), it suffers from cold start issues. Usually takes 1 minute to start after certain inactivity period.
+- Model to convert text to vectors: [sentence-transformers/all-MiniLM-L6-v2](https://huggingface.co/sentence-transformers/all-MiniLM-L6-v2)
 - [Live link](https://scrapifyx.onrender.com/)
 
 ## Challenges during cloud deployment
