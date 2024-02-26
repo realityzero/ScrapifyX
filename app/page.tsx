@@ -5,6 +5,7 @@ import { QuestionUi } from "../components/ui/question";
 import { useState } from "react";
 import { TopKResults } from "./interfaces/document";
 import { AnswerCard } from "../components/ui/answer-card";
+import { Toaster } from "../components/ui/toaster";
 
 export default function Home() {
   const [answer, setAnswer] = useState<TopKResults[] | null>(null);
@@ -22,6 +23,7 @@ export default function Home() {
       <AnswerCard className="overflow-auto max-h-96" answers={answer} />
 
       </div>
+      <Toaster />
     </main>
   );
 }
