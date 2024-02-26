@@ -4,6 +4,7 @@ import { BackgroundGradient } from "./background-gradient";
 import { Button } from "./button";
 import { Textarea } from "./textarea";
 import { TopKResults } from "../../app/interfaces/document";
+import { useToast } from "./use-toast";
 
 
 interface QueryUiProps {
@@ -11,9 +12,14 @@ interface QueryUiProps {
 }
 
 export function QuestionUi({ onApiResponse }: QueryUiProps) {
+  const { toast } = useToast();
   const [question, setQuestion] = useState('');
 
   const fetchAnswer = async () => {
+    toast({
+        title: "Hold tight!",
+        description: "We're coming ringht back w/ answers",
+    });
     const response = await fetch('/question/', {
       method: "POST",
       body: JSON.stringify({question}),
@@ -21,8 +27,14 @@ export function QuestionUi({ onApiResponse }: QueryUiProps) {
         "Content-Type": "application/json"
       }
     });
-
-    if (!response.ok) throw new Error('Network response was not ok');
+    
+    if (!response.ok) {
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+      });
+    }
 
     const data = await response.json();
     onApiResponse(data);
