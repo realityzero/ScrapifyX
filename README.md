@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Scrapify-X
 
-## Getting Started
+Web scraper powered by Puppeteer and Pinecone DB as Vector DB.
 
-First, run the development server:
+## General Architecture
+- insert doc link here
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Video Brief from Author
+- [Loom Video](https://www.loom.com/share/139f9b9c7ae94b09a41e15771995af5d)
+
+## Notes from Author
+- UI flow is tested for a happy path. There will be some bugs available.
+- Refer ```.env.example``` file for example env variables
+- Service is based on Next.js 13 and deployed using [Render](https://render.com/). Due to limitations of free tier of [Render](https://render.com/), it suffers from cold start issues. Usually takes 1 minute to start after certain inactivity period.
+- [Live link](https://scrapifyx.onrender.com/)
+
+## Challenges during cloud deployment
+- We don't have an active high volume storage available in Free Tier accounts. That's why we're downloading chromium build at runtime.
+- Easiest deployment solution is [Vercel](https://vercel.com/). But due to recent changes in Free Tier, we can't run Puppeteer. There are Network Bandwidth limitations and [Vercel](https://vercel.com/) has a timeout of 10 seconds.
+- [Render](https://render.com/) is another free option. It gives a free machine to run web services, but suffers from cold start or spin down after a while.
+
+## UI Inspiration
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Aceternity UI](https://ui.aceternity.com/)
+
+## Live Link
+https://scrapifyx.onrender.com/
+
+## Steps for local/dev run
+```
+$ npm i
+$ npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Steps for prod
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```
+$ npm i
+$ npm build
+$ npm start
+```
