@@ -12,6 +12,7 @@
     "@huggingface/inference": "^2.6.4",
     "@pinecone-database/pinecone": "^2.0.1",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-toast": "^1.1.5",
     "@sparticuz/chromium-min": "^115.0.0",
     "autoprefixer": "^10.0.1",
     "class-variance-authority": "^0.7.0",
