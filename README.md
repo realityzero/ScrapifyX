@@ -77,9 +77,11 @@ metadata: {
 - metadata.loc: stores url of scraping website.
 - metadata.pageContent: splitted chunks of text stored in raw string format. Good to have, since we need to show the text after query.
 - metadata.txtPath: contains page title of that website.
+- Querying strategy: As mentioned in ```General Architecture```, questions are converted to vectors embeddings. Using those vector embeddings, we query our vector db (Pinecone DB) w/ questions vector embeddings to find similar results (also known as Top K). Behind the scenes we are doing a dot product of ``` vector(question) . vector(db record) ``` and trying to find the top related results.
 
 ## Scope of Improvements:
 - Keep a snapshot in cache of scraped website. Avoid multiple web scraping triggers within a small time period. This is a complete usecase specific thing.
 - Better exception handing w/ error classes and show relevant api response from api handlers. Provides better code readability.
 - Instead of relying on 3rd party api for vector embedding generation, use a locally cached model to optimise for query performance. This can't be done for existing deployment due to space and hardware limitations.
 - Random UI issues w/ changing screen size. Handled for common mobile and desktop size.
+- Mention in UI to ask short questions and limit to vector embedding model's token length.
