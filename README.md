@@ -18,7 +18,7 @@ Web scraper powered by Puppeteer and Pinecone DB as Vector DB.
 ## Challenges during cloud deployment
 - We don't have an active high volume storage available in Free Tier accounts. That's why we're downloading chromium build at runtime.
 - Easiest deployment solution is [Vercel](https://vercel.com/). But due to recent changes in Free Tier, we can't run Puppeteer. There are Network Bandwidth limitations and [Vercel](https://vercel.com/) has a timeout of 10 seconds.
-- [Render](https://render.com/) is another free option. It gives a free machine to run web services, but suffers from cold start or spin down after a while.
+- [Render](https://render.com/) is another free option. It gives a free machine to run web services, but suffers from cold start or spin down after a while. Also, suffers from random server crash.
 
 ## UI Inspiration
 - [shadcn/ui](https://ui.shadcn.com/)
@@ -28,6 +28,7 @@ Web scraper powered by Puppeteer and Pinecone DB as Vector DB.
 https://scrapifyx.onrender.com/
 
 ## Steps for local/dev run
+- You will need huggingface and pineconedb api keys, refer ```.env.example``` for env keys.
 ```
 $ npm i
 $ npm run dev
@@ -40,3 +41,45 @@ $ npm i
 $ npm build
 $ npm start
 ```
+
+## Api Endpoints
+
+1. Trigger web scraping
+```
+curl --location 'https://scrapifyx.onrender.com/question' \
+--header 'content-type: application/json' \
+--data '{"question":"how does protein work?"}'
+```
+
+2. Ask questions
+```
+curl --location 'https://scrapifyx.onrender.com/api' \
+--header 'content-type: application/json' \
+--data '{"url":"https://www.britannica.com/plant/plant"}'
+```
+
+## Database Design
+
+```
+id|values|metadata
+```
+- Keeping the design simple and straightforward.
+- id: Identifier of the object. Should be an auto-increment number or uuid. I made a mistake of putting encoded urls under id.
+- values: This is where you'll keep your vector data. Working with vector databases and learning more about it, I understood vector dbs are more optimised to query vectors. One key thing they have is indexes over these vectors and a lot more. Refer this article to learn more: https://www.pinecone.io/learn/vector-database/
+- metadata: Now, this is where you will store metadata of your vectors like some content or path location. 
+```
+metadata: {
+    loc: <value>
+    pageContent: <value>
+    textPath: <value>
+}
+```
+- metadata.loc: stores url of scraping website.
+- metadata.pageContent: splitted chunks of text stored in raw string format. Good to have, since we need to show the text after query.
+- metadata.txtPath: contains page title of that website.
+
+## Scope of Improvements:
+- Keep a snapshot in cache of scraped website. Avoid multiple web scraping triggers within a small time period. This is a complete usecase specific thing.
+- Better exception handing w/ error classes and show relevant api response from api handlers. Provides better code readability.
+- Instead of relying on 3rd party api for vector embedding generation, use a locally cached model to optimise for query performance. This can't be done for existing deployment due to space and hardware limitations.
+- Random UI issues w/ changing screen size. Handled for common mobile and desktop size.
