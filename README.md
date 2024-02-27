@@ -85,3 +85,4 @@ metadata: {
 - Instead of relying on 3rd party api for vector embedding generation, use a locally cached model to optimise for query performance. This can't be done for existing deployment due to space and hardware limitations.
 - Random UI issues w/ changing screen size. Handled for common mobile and desktop size.
 - Mention in UI to ask short questions and limit to vector embedding model's token length.
+- Ability to scrape pages in depth. Depth 0: url, Depth 1: href or side links, Depth 2 and so one.
