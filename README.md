@@ -86,3 +86,6 @@ metadata: {
 - Random UI issues w/ changing screen size. Handled for common mobile and desktop size.
 - Mention in UI to ask short questions and limit to vector embedding model's token length.
 - Ability to scrape pages in depth. Depth 0: url, Depth 1: href or side links, Depth 2 and so one.
+
+## Update
+- April 9, 2024: Less frequent downtime at page load. Thanks to ping on render from [@UptimeRobot](https://www.github.com/uptimerobot)
