@@ -46,16 +46,16 @@ $ npm start
 
 1. Trigger web scraping
 ```
-curl --location 'https://scrapifyx.onrender.com/question' \
+curl --location 'https://scrapifyx.onrender.com/api' \
 --header 'content-type: application/json' \
---data '{"question":"how does protein work?"}'
+--data '{"url":"https://www.britannica.com/plant/plant"}'
 ```
 
 2. Ask questions
 ```
-curl --location 'https://scrapifyx.onrender.com/api' \
+curl --location 'https://scrapifyx.onrender.com/question' \
 --header 'content-type: application/json' \
---data '{"url":"https://www.britannica.com/plant/plant"}'
+--data '{"question":"how does protein work?"}'
 ```
 
 ## Database Design
