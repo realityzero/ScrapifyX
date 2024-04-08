@@ -6,7 +6,7 @@ Web scraper powered by Puppeteer and Pinecone DB as Vector DB.
 ![Architectural working](./docs/Web%20Scraper.png?raw=true)
 
 ## Video Brief from Author
-- [Loom Video](https://www.loom.com/share/139f9b9c7ae94b09a41e15771995af5d)
+[![Loom Video](./docs/Loom.png?raw=true)](https://www.loom.com/share/139f9b9c7ae94b09a41e15771995af5d)
 
 ## Notes from Author
 - UI flow is tested for a happy path. There will be some bugs available.
